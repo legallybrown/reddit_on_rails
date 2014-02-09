@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
   
   def show
-    @links = Link.all
+    @link = Link.all
 
     respond_to do |format|
       format.html 
@@ -14,7 +14,21 @@ class LinksController < ApplicationController
   end
 
   def create
-    @links = Link.all 
+    
+    @link = Link.new(link_params)
+      if @link.save
+        flash[:notice] = "Link succesfully added!"
+        redirect_to link_path(@link) 
+      else
+        flash[:notice] = "Error, please try again"
+        redirect_to new_link_path
+      end
+  end
+
+  def link_params
+    params.require(:link).permit(:title, :url, :created_at, :updated_at)
   end
 
 end
+
+
