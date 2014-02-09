@@ -1,29 +1,65 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>RedditOnRails</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%# user is logged in, show log out link %>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-<% if current_user.present? %>
-  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %> 
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "modernizr" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
 
-<%# user is not logged in, show log in link %>
+  <body>
 
-<% else %> 
-  <%= link_to "Sign In", new_user_session_path %>
-  <%= link_to "Register Now", new_user_registration_path %>
-<% end %> 
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">Reddit on Rails</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    </ul>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+  <!-- Left Nav Section -->
+      <ul class="right">
+        <li>
+          <%= link_to "Submit a Link", new_link_path %>
+        </li>
+      </ul>
+      <ul class="right">
+        <li class="button [radius round]">
+          <% if current_user.present? %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %> 
+          <%# user is not logged in, show log in link %>
+          <% else %> 
+          <%= link_to "Sign In", new_user_session_path %> 
+        </li>
+      </ul>
+      <ul class="right">
+        <li class="button [radius round]">
+            <%= link_to "Register Now", new_user_registration_path %><% end %></a>
+        </li>
+      </ul>
+    </section>
+  </nav>
 
-<%= yield %>
+  <div class="row">
+    <div class="small-12 columns">
+      
 
-</body>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+
+
+      <%= yield %>
+
+
+  </div>
+
+      <%= javascript_include_tag "application" %>
+  </body>
 </html>

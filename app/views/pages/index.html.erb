@@ -1,14 +1,15 @@
 <h1>Welcome to Reddit on Rails </h1>
+  
+  <p><%= link_to "Submit a link", new_link_path %></p>
 
-<%= link_to "Submit a link", new_link_path %> 
+  <h3>Recently added links<h3>
 
-<h3>Recently added links<h3>
+    <br />
 
-<% @links.each do |link|%>
+  <% @links.each do |link|%>
+    <ul>
+      <li><%= link_to "#{link.title}", link.url %></li>
+    </ul>
+  <% end %>
 
-<ul>
-  <li><%= link_to "#{link.title}", link.url %></li>
-</ul>
-
-<% end %>
-
+  <%= will_paginate @links %>  
