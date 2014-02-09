@@ -1,3 +1,14 @@
-<h1>This is a page in the Pages View </h1>
+<h1>Welcome to Reddit on Rails </h1>
 
 <%= link_to "Submit a link", new_link_path %> 
+
+<h3>Recently added links<h3>
+
+<% @links.each do |link|%>
+
+<ul>
+  <li><%= link_to "#{link.title}", link.url %></li>
+</ul>
+
+<% end %>
+
