@@ -1,16 +1,32 @@
 class LinksController < ApplicationController
+
+  require 'action_view'
+  include ActionView::Helpers::DateHelper 
   
-  def show
-    @link = Link.all
+  def index
+
+    @links = Link.all
 
     respond_to do |format|
       format.html 
       format.json { render json: @links }
     end
+
+  end 
+
+
+  def show
+    
+    @link    = Link.find(params[:id])
+    @comment = Comment.new 
+
+    @posted = @comment.created_at
+
   end
 
   def new
     @link = Link.new 
+
   end
 
   def create
@@ -25,8 +41,10 @@ class LinksController < ApplicationController
       end
   end
 
+  private
+
   def link_params
-    params.require(:link).permit(:title, :url, :created_at, :updated_at)
+    params.require(:link).permit(:comment, :title, :url, :user_id)
   end
 
 end

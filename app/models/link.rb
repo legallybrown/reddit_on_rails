@@ -1,9 +1,6 @@
 class Link < ActiveRecord::Base
   
-  belongs_to :users
+  belongs_to :user
   has_many :comments
-
-  def link_params
-    params.require(:links).permit(:user_id, :url, :comments, :users)  
-  end
+  has_many :votes
 end

@@ -6,11 +6,16 @@
 
     <br />
 
-  <% @links.each do |link|%>
+  <% @links.each do |link| %>
+ 
     <ul class="no-bullet">
-      <li><%= link_to "#{link.title}", link.url %></li>
-        <ul>
-          <li><%= link_to "comments", link_path(link) %></li>
+      <li>
+        <%= link_to "#{link.title}", link.url %> || (Total Votes: Votes:<%= link.votes.where(:up => true).count - link.votes.where(:up => false).count %>)
+      </li>
+        <ul class="no-bullet">
+          <li> - <%= link_to "view comments", link_path(link) %></li>
+          <li> - <%= link_to "upvote (+)", votes_path(:vote => {:link_id => link.id, :up => true}), :method => :post %></li>
+          <li> - <%= link_to "downvote (-)", votes_path(:vote => {:link_id => link.id, :up => false}), :method => :post %></li>
         </ul>
       </li>
     </ul>

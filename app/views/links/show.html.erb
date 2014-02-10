@@ -1,7 +1,55 @@
-<p><%= link_to "Back to Links", root_path %></p>
+<div class="row">
+  <div class="small-12 columns">
+    <h2> Post a comment </h2>
+      <%= form_for(@comment) do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
-<p><%= link_to "Submit another Link", new_link_path %> </p>
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
 
+      <div class="field">
+        <%= f.label :message %><br />
+        <%= f.text_area :message, :placeholder => "Add a comment" %>
+      </div>
+      
+      <div class="actions">
+          <%= f.submit %>
+      </div>
+
+    <%= f.hidden_field :link_id, :value => @link.id %>
+
+    <% end %>
+
+    <h2>Listing Comments:<h2>
+
+      <table>
+        <% @link.comments.each do |comment| %>
+      <tr>
+        <th>Comment</th>
+        <th>Poster</th>
+        <th>Submitted</th>
+      </tr>
+      <tr>
+        <td><%= comment.message %></td>
+        <td><%= comment.user.username %></td>
+        <td><%= @posted %> 
+      </tr>
+       <% end %>
+
+      </table>
+
+    <p><%= link_to "Back to Links", root_path %></p>
+
+    <p><%= link_to "Submit another Link", new_link_path %> </p>
+  </div>
+</div>
 
 
 
